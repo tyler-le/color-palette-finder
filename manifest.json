@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Color Palette Picker",
-  "description": "",
+  "name": "Color Palette Finder",
+  "description": "Chrome extension to easily find the color palette of a page.",
   "version": "1.0",
 
   "browser_action": {
