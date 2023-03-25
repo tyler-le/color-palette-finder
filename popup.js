@@ -1,7 +1,4 @@
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.colors) {
-        console.log('Colors received:', request.colors);
-        // Process the received colors here
-        sendResponse({ "processedColors": request.colors });
-    }
+chrome.runtime.sendMessage({ 'method': 'getColors' }, function (response) {
+    //response is now the info collected by the content script.
+    console.log(response);
 });

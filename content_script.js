@@ -38,11 +38,9 @@ for (let i = 0; i < links.length; i++) {
                         }
                     });
                 }
-                // Send a message to the background script with the color data
-                chrome.runtime.sendMessage({ colors: colors }, function (response) {
-                    console.log(colors);
-                    console.log("Response from background script:", response);
-                });
+
+                //console.log(`FROM CONTENT SCRIPT: ${colors}`)
+                chrome.runtime.sendMessage({ 'method': 'setColors', 'colors': colors });
             })
             .catch(error => {
                 console.error('Error fetching CSS file:', error);
