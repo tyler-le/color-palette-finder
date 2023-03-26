@@ -33,6 +33,15 @@ function renderColors(colors) {
         colorBlock.style.position = "relative";
         colorBlock.style.cursor = "pointer";
 
+        // Calculate perceived brightness of color and set text color accordingly
+        const [red, green, blue] = colorBlock.style.backgroundColor.match(/\d+/g);
+        const perceivedBrightness = Math.sqrt(
+            0.299 * red ** 2 +
+            0.587 * green ** 2 +
+            0.114 * blue ** 2
+        );
+        const textColor = perceivedBrightness <= 130 ? "#fff" : "#000";
+
         // Add span element to display color code
         const colorCodeSpan = document.createElement("span");
         colorCodeSpan.textContent = sortedColors[i];
@@ -40,7 +49,7 @@ function renderColors(colors) {
         colorCodeSpan.style.top = "50%";
         colorCodeSpan.style.left = "50%";
         colorCodeSpan.style.transform = "translate(-50%, -50%)";
-        colorCodeSpan.style.color = "#fff";
+        colorCodeSpan.style.color = textColor;
         colorCodeSpan.style.fontWeight = "bold";
         colorCodeSpan.style.fontSize = "12px";
         colorCodeSpan.style.opacity = 0;
@@ -65,4 +74,3 @@ function renderColors(colors) {
         colorsContainer.appendChild(colorBlock);
     }
 }
-
