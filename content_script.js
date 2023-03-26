@@ -55,6 +55,9 @@ function hslToHex(hsl) {
 
 // Function that converts HEX value to 6 hex
 function standardizeHex(hex) {
+    let one = hex[1];
+    let two = hex[2];
+    let three = hex[3];
     return (hex.length == 7) ? hex : `#${one}${one}${two}${two}${three}${three}`;
 }
 

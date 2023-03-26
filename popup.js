@@ -12,6 +12,8 @@ window.addEventListener('load', function () {
 });
 
 function renderColors(colors) {
+    if (!colors) return;
+
     // Sort the colors by frequency
     const colorCounts = {};
     colors.forEach((color) => {
@@ -24,7 +26,7 @@ function renderColors(colors) {
     // Create blocks of the most frequent colors
     const colorsContainer = document.getElementById("output");
     colorsContainer.innerHTML = "";
-    
+
     for (let i = 0; i < 5 && i < sortedColors.length; i++) {
         const colorBlock = document.createElement("div");
         colorBlock.style.backgroundColor = sortedColors[i];
