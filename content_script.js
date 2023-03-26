@@ -53,6 +53,11 @@ function hslToHex(hsl) {
     return "#" + toHex(r) + toHex(g) + toHex(b);
 }
 
+// Function that converts HEX value to 6 hex
+function standardizeHex(hex) {
+    return (hex.length == 7) ? hex : `#${one}${one}${two}${two}${three}${three}`;
+}
+
 
 function getColors() {
     // Regular expression to match colors in CSS
@@ -84,7 +89,7 @@ function getColors() {
                         let hexValue;
                         if (colorValue.startsWith('rgb')) { hexValue = rgbToHex(colorValue); }
                         else if (colorValue.startsWith('hsl')) { hexValue = hslToHex(colorValue); }
-                        else { hexValue = colorValue; }
+                        else { hexValue = standardizeHex(colorValue); }
                         colors.push(hexValue);
                     });
                 })
