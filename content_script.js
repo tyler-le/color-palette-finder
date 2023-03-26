@@ -78,7 +78,7 @@ function getColors() {
                     // Parse the CSS file and process it
                     const colorValues = cssText.match(colorRegex);
                     if (!colorValues) return;
-                    
+
                     colorValues.forEach((colorValue) => {
                         // Check if the color is in RGB format
                         let hexValue;

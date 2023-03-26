@@ -23,6 +23,8 @@ function renderColors(colors) {
 
     // Create blocks of the most frequent colors
     const colorsContainer = document.getElementById("output");
+    colorsContainer.innerHTML = "";
+    
     for (let i = 0; i < 5 && i < sortedColors.length; i++) {
         const colorBlock = document.createElement("div");
         colorBlock.style.backgroundColor = sortedColors[i];
@@ -59,7 +61,7 @@ function renderColors(colors) {
             colorCodeSpan.style.opacity = 1;
             colorBlock.style.cursor = "pointer";
         });
-        
+
         colorBlock.addEventListener("mouseout", () => {
             colorCodeSpan.textContent = sortedColors[i]; // Revert back to the color code
             colorCodeSpan.style.opacity = 1;
