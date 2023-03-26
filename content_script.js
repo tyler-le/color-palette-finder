@@ -1,4 +1,14 @@
-
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+    switch (message.type) {
+        case "getColors":
+            getColors().then((colors) => {
+                sendResponse(colors);
+            });
+            return true; // Return true to indicate that sendResponse will be called asynchronously
+        default:
+            console.error("Unrecognized message: ", message);
+    }
+});
 
 // Function to convert RGB color to HEX format
 function rgbToHex(rgb) {
@@ -9,7 +19,7 @@ function rgbToHex(rgb) {
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 
-function renderColors() {
+function getColors() {
     // Regular expression to match colors in CSS
     const colorRegex = /#([0-9a-f]{3}){1,2}\b|\b((rgb|hsl)a?\([\d\s%,.]+\))/gi;
 
@@ -17,21 +27,24 @@ function renderColors() {
     const colors = [];
 
     // Get all the link elements on the page
-    const links = document.getElementsByTagName('link');
+    const links = document.getElementsByTagName("link");
+
+    // Array of Promises to fetch the CSS files and extract the color values
+    const fetchPromises = [];
 
     // Loop through the links and process the CSS files
     for (let i = 0; i < links.length; i++) {
         const link = links[i];
         // Only process link elements with rel="stylesheet"
-        if (link.rel === 'stylesheet') {
-            // Use the Fetch API to fetch the CSS file
-            fetch(link.href)
-                .then(response => response.text())
-                .then(cssText => {
+        if (link.rel === "stylesheet") {
+            const fetchPromise = fetch(link.href)
+                .then((response) => response.text())
+                .then((cssText) => {
                     // Parse the CSS file and process it
                     const colorValues = cssText.match(colorRegex);
+
                     if (colorValues) {
-                        colorValues.forEach(colorValue => {
+                        colorValues.forEach((colorValue) => {
                             // Check if the color is in RGB format
                             if (colorValue.startsWith("rgb")) {
                                 const hexValue = rgbToHex(colorValue);
@@ -41,16 +54,18 @@ function renderColors() {
                             }
                         });
                     }
-
-                    //console.log(`FROM CONTENT SCRIPT: ${colors}`)
-                    chrome.runtime.sendMessage({ 'method': 'setColors', 'colors': colors });
                 })
-                .catch(error => {
-                    console.error('Error fetching CSS file:', error);
+                .catch((error) => {
+                    console.error("Error fetching CSS file:", error);
                 });
+            fetchPromises.push(fetchPromise);
         }
     }
 
+    // Return a Promise that resolves when all the CSS files have been fetched and color values extracted
+    return Promise.all(fetchPromises).then(() => {
+        console.log("From Content Script");
+        console.log(colors);
+        return colors;
+    });
 }
-
-renderColors();
