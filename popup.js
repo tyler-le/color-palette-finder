@@ -30,6 +30,39 @@ function renderColors(colors) {
         colorBlock.style.height = "50px";
         colorBlock.style.margin = "5px";
         colorBlock.style.border = "1px solid black";
+        colorBlock.style.position = "relative";
+        colorBlock.style.cursor = "pointer";
+
+        // Add span element to display color code
+        const colorCodeSpan = document.createElement("span");
+        colorCodeSpan.textContent = sortedColors[i];
+        colorCodeSpan.style.position = "absolute";
+        colorCodeSpan.style.top = "50%";
+        colorCodeSpan.style.left = "50%";
+        colorCodeSpan.style.transform = "translate(-50%, -50%)";
+        colorCodeSpan.style.color = "#fff";
+        colorCodeSpan.style.fontWeight = "bold";
+        colorCodeSpan.style.fontSize = "12px";
+        colorCodeSpan.style.opacity = 0;
+        colorBlock.appendChild(colorCodeSpan);
+
+        // Add mouseover and mouseout event listeners to show/hide color code and change cursor
+        colorBlock.addEventListener("mouseover", () => {
+            colorCodeSpan.style.opacity = 1;
+            colorBlock.style.cursor = "cursor";
+        });
+        colorBlock.addEventListener("mouseout", () => {
+            colorCodeSpan.style.opacity = 0;
+            colorBlock.style.cursor = "pointer";
+        });
+
+        // Add click event listener to copy color code to clipboard
+        colorBlock.addEventListener("click", async () => {
+            await navigator.clipboard.writeText(sortedColors[i]);
+            alert("Hex code copied to clipboard: " + sortedColors[i]);
+        });
+
         colorsContainer.appendChild(colorBlock);
     }
 }
+
