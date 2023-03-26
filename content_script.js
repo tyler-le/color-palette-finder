@@ -77,23 +77,16 @@ function getColors() {
                 .then((cssText) => {
                     // Parse the CSS file and process it
                     const colorValues = cssText.match(colorRegex);
-
-                    if (colorValues) {
-                        colorValues.forEach((colorValue) => {
-                            // Check if the color is in RGB format
-                            if (colorValue.startsWith("rgb")) {
-                                const hexValue = rgbToHex(colorValue);
-                                colors.push(hexValue);
-                            }
-                            else if (colorValue.startsWith("hsl")) {
-                                const hexValue = hslToHex(colorValue);
-                                colors.push(hexValue);
-                            }
-                            else {
-                                colors.push(colorValue);
-                            }
-                        });
-                    }
+                    if (!colorValues) return;
+                    
+                    colorValues.forEach((colorValue) => {
+                        // Check if the color is in RGB format
+                        let hexValue;
+                        if (colorValue.startsWith('rgb')) { hexValue = rgbToHex(colorValue); }
+                        else if (colorValue.startsWith('hsl')) { hexValue = hslToHex(colorValue); }
+                        else { hexValue = colorValue; }
+                        colors.push(hexValue);
+                    });
                 })
                 .catch((error) => {
                     console.error("Error fetching CSS file:", error);
