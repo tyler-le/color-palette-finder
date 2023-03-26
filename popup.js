@@ -1,5 +1,13 @@
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    const btn = document.getElementById('get-palette')
+    btn.addEventListener('click', () => {
+        populateColors();
+    })
+});
+
+function populateColors() {
     chrome.runtime.sendMessage({ method: "getColors" }, function (response) {
         // Sort the colors by frequency
         const colorCounts = {};
@@ -22,4 +30,4 @@ document.addEventListener("DOMContentLoaded", function () {
             colorsContainer.appendChild(colorBlock);
         }
     });
-});
+}
