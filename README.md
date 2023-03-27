@@ -29,4 +29,4 @@ To install this extension, follow these steps:
 - All HEX codes will be displayed in the popup window.
 - Click on a color to copy its HEX code to your clipboard.
 
-![edit1](https://user-images.githubusercontent.com/15850172/227810305-eb4876f1-7537-4d57-bf74-3990ff7a4bf5.png)
+![2](https://user-images.githubusercontent.com/15850172/228090195-7310781c-9820-4eee-a4f2-10b8042abfe0.png)
