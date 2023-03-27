@@ -25,7 +25,7 @@ To install this extension, follow these steps:
 
 - Navigate to any webpage where you want to pick a color.
 - Click on the Color Palette icon in your browser toolbar to activate the extension.
-- The extension will automatically detect all colors used in the webpage, and display them in a popup window.
+- The extension will automatically detect all colors used in the webpage and display them in a popup window.
 - All HEX codes will be displayed in the popup window.
 - Click on a color to copy its HEX code to your clipboard.
 
