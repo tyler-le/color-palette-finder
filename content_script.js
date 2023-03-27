@@ -2,7 +2,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
         case "getColors":
             getColors().then((colors) => {
-                sendResponse(Array.from(colors));
+                sendResponse(colors);
             });
             return true; // Return true to indicate that sendResponse will be called asynchronously
         default:
@@ -66,7 +66,7 @@ function getColors() {
     const colorRegex = /#([0-9a-f]{3}){1,2}\b|\b((rgb|hsl)a?\([\d\s%,.]+\))/gi;
 
     // Array to store the color values
-    const colors = new Set();
+    const colors = [];
 
     // Get all the link elements on the page
     const links = document.getElementsByTagName("link");
@@ -84,31 +84,33 @@ function getColors() {
                 .then((cssText) => {
                     // Parse the CSS file and process it
                     const colorValues = cssText.match(colorRegex);
-                    if (!colorValues) return;
+                    if (!colorValues.length) {
+                        console.error("[Content Script] Parsed CSS and didn't find any colors!");
+                        return;
+                    }
 
                     colorValues.forEach((colorValue) => {
                         // Check if the color is in RGB format
-                        let hexValue;
-                        if (colorValue.startsWith("rgb")) {
-                            hexValue = rgbToHex(colorValue);
-                        } else if (colorValue.startsWith("hsl")) {
-                            hexValue = hslToHex(colorValue);
-                        } else {
-                            hexValue = standardizeHex(colorValue);
-                        }
-                        colors.add(hexValue);
+                        let hexValue = colorValue.startsWith("rgb")
+                            ? rgbToHex(colorValue)
+                            : colorValue.startsWith("hsl")
+                                ? hslToHex(colorValue)
+                                : standardizeHex(colorValue);
+
+                        colors.push(hexValue);
                     });
                 })
                 .catch((error) => {
-                    console.error("Error fetching CSS file:", error);
+                    console.error("[Content Script] Error fetching CSS file:", error);
                 });
+
             fetchPromises.push(fetchPromise);
         }
     }
 
     // Return a Promise that resolves when all the CSS files have been fetched and color values extracted
     return Promise.all(fetchPromises).then(() => {
-        console.log("From Content Script");
+        console.log("[Content Script] Colors:");
         console.log(colors);
         return colors;
     });

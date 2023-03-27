@@ -21,7 +21,13 @@ window.addEventListener("load", function () {
 });
 
 function renderColors(colors) {
-    if (!colors) return;
+    const colorsContainer = document.getElementById("output");
+
+    colorsContainer.innerHTML = "";
+    if (!colors.length) {
+        colorsContainer.innerHTML = "Unable to find colors!";
+        return;
+    }
 
     // Sort the colors by frequency
     const colorCounts = {};
@@ -33,9 +39,7 @@ function renderColors(colors) {
     );
 
     // Create blocks of the most frequent colors
-    const colorsContainer = document.getElementById("output");
-    colorsContainer.innerHTML = "";
-
+    console.log("[Popup Scrips] Sorted Colors: ", sortedColors)
     for (let i = 0; i < 5 && i < sortedColors.length; i++) {
         const colorBlock = document.createElement("div");
         colorBlock.style.backgroundColor = sortedColors[i];
