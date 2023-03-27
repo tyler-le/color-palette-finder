@@ -1,3 +1,8 @@
+/*
+TODO: Need to figure out a way to bypass CORS error. 
+Cannot fetch CSS file if the files are stored on a different domain.
+*/
+
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
         case "getColors":
@@ -84,8 +89,8 @@ function getColors() {
                 .then((cssText) => {
                     // Parse the CSS file and process it
                     const colorValues = cssText.match(colorRegex);
-                    if (!colorValues.length) {
-                        console.error("[Content Script] Parsed CSS and didn't find any colors!");
+                    if (colorValues === null || !colorValues.length) {
+                        console.warn("[Content Script] This specific CSS file does not have any colors!" + link.href)
                         return;
                     }
 

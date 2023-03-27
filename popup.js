@@ -24,7 +24,7 @@ function renderColors(colors) {
     const colorsContainer = document.getElementById("output");
 
     colorsContainer.innerHTML = "";
-    if (!colors.length) {
+    if (colors == null || !colors.length) {
         colorsContainer.innerHTML = "Unable to find colors!";
         return;
     }
