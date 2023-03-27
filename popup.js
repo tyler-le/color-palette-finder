@@ -1,11 +1,18 @@
+// Wait for the page to fully load before executing the following code
 window.addEventListener("load", function () {
+    // Get the loading indicator element and hide it
     const loading = document.getElementById("loading-dots");
     loading.style.display = "none";
-    // Listen for a click event on the button
+
+    // Listen for a click event on the "Get Palette" button
     const btn = document.getElementById("get-palette");
     btn.addEventListener("click", () => {
+
+        // Hide the button and show the loading indicator
         btn.style.display = "none";
         loading.style.display = "block";
+
+        // Query the active tab in the current window and send a message to get the colors
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             chrome.tabs.sendMessage(
                 tabs[0].id,
@@ -20,10 +27,12 @@ window.addEventListener("load", function () {
     });
 });
 
+// Sorts colors by frequency and displays the top five colors 
 function renderColors(colors) {
+    // Empty out the colors container
     const colorsContainer = document.getElementById("output");
-
     colorsContainer.innerHTML = "";
+
     if (colors == null || !colors.length) {
         colorsContainer.innerHTML = "Unable to find colors!";
         return;
@@ -67,7 +76,7 @@ function renderColors(colors) {
         colorCodeSpan.style.color = textColor;
         colorCodeSpan.style.fontWeight = "bold";
         colorCodeSpan.style.fontSize = "12px";
-        colorCodeSpan.style.opacity = 1; // Initially display the color code
+        colorCodeSpan.style.opacity = 1;
 
         // Add mouseover and mouseout event listeners to show/hide color code and change cursor
         colorBlock.addEventListener("mouseover", () => {

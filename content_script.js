@@ -58,7 +58,7 @@ function hslToHex(hsl) {
     return "#" + toHex(r) + toHex(g) + toHex(b);
 }
 
-// Function that converts HEX value to 6 hex
+// Function that converts HEX value to 6 digit hex
 function standardizeHex(hex) {
     let one = hex[1];
     let two = hex[2];
@@ -66,7 +66,7 @@ function standardizeHex(hex) {
     return hex.length == 7 ? hex : `#${one}${one}${two}${two}${three}${three}`;
 }
 
-function getColors() {
+async function getColors() {
     // Regular expression to match colors in CSS
     const colorRegex = /#([0-9a-f]{3}){1,2}\b|\b((rgb|hsl)a?\([\d\s%,.]+\))/gi;
 
@@ -76,47 +76,45 @@ function getColors() {
     // Get all the link elements on the page
     const links = document.getElementsByTagName("link");
 
-    // Array of Promises to fetch the CSS files and extract the color values
-    const fetchPromises = [];
-
     // Loop through the links and process the CSS files
     for (let i = 0; i < links.length; i++) {
         const link = links[i];
         // Only process link elements with rel="stylesheet"
         if (link.rel === "stylesheet") {
-            const fetchPromise = fetch(link.href)
-                .then((response) => response.text())
-                .then((cssText) => {
-                    // Parse the CSS file and process it
-                    const colorValues = cssText.match(colorRegex);
-                    if (colorValues === null || !colorValues.length) {
-                        console.warn("[Content Script] This specific CSS file does not have any colors!" + link.href)
-                        return;
-                    }
+            try {
+                // Fetch the CSS file text
+                const response = await fetch(link.href);
+                const cssText = await response.text();
 
-                    colorValues.forEach((colorValue) => {
-                        // Check if the color is in RGB format
-                        let hexValue = colorValue.startsWith("rgb")
-                            ? rgbToHex(colorValue)
-                            : colorValue.startsWith("hsl")
-                                ? hslToHex(colorValue)
-                                : standardizeHex(colorValue);
+                // Parse the CSS file and look for color values
+                const colorValues = cssText.match(colorRegex);
 
-                        colors.push(hexValue);
-                    });
-                })
-                .catch((error) => {
-                    console.error("[Content Script] Error fetching CSS file:", error);
+                if (colorValues === null || !colorValues.length) {
+                    console.warn(
+                        "[Content Script] This specific CSS file does not have any colors!" +
+                        link.href
+                    );
+                    continue;
+                }
+
+                // Convert color code to HEX and store in 'colors' array
+                colorValues.forEach((colorValue) => {
+                    // Check if the color is in RGB format
+                    let hexValue = colorValue.startsWith("rgb")
+                        ? rgbToHex(colorValue)
+                        : colorValue.startsWith("hsl")
+                            ? hslToHex(colorValue)
+                            : standardizeHex(colorValue);
+
+                    colors.push(hexValue);
                 });
-
-            fetchPromises.push(fetchPromise);
+            } catch (error) {
+                console.error("[Content Script] Error fetching CSS file:", error);
+            }
         }
     }
 
-    // Return a Promise that resolves when all the CSS files have been fetched and color values extracted
-    return Promise.all(fetchPromises).then(() => {
-        console.log("[Content Script] Colors:");
-        console.log(colors);
-        return colors;
-    });
+    console.log("[Content Script] Colors:");
+    console.log(colors);
+    return colors;
 }
