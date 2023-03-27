@@ -4,11 +4,10 @@ A Chrome extension that finds the color palette of a given webpage.
 
 ## Features
 
-- Simple and intuitive UI
+- Simple and intuitive UI that displays the HEX code of each color
 - Automatically detects all colors used in a webpage, including those defined in CSS files
 - Supports RGB and HSL color formats, and converts them to HEX format for easy copying
 - Click on a color to copy its HEX code to your clipboard
-- Hover over a color to see its HEX code
 
 ## Installation
 
