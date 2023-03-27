@@ -2,7 +2,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
         case "getColors":
             getColors().then((colors) => {
-                sendResponse(colors);
+                sendResponse(Array.from(colors));
             });
             return true; // Return true to indicate that sendResponse will be called asynchronously
         default:
@@ -67,7 +67,7 @@ function getColors() {
     const colorRegex = /#([0-9a-f]{3}){1,2}\b|\b((rgb|hsl)a?\([\d\s%,.]+\))/gi;
 
     // Array to store the color values
-    const colors = [];
+    const colors = new Set();
 
     // Get all the link elements on the page
     const links = document.getElementsByTagName("link");
@@ -93,7 +93,7 @@ function getColors() {
                         if (colorValue.startsWith('rgb')) { hexValue = rgbToHex(colorValue); }
                         else if (colorValue.startsWith('hsl')) { hexValue = hslToHex(colorValue); }
                         else { hexValue = standardizeHex(colorValue); }
-                        colors.push(hexValue);
+                        colors.add(hexValue);
                     });
                 })
                 .catch((error) => {
