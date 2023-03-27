@@ -2,37 +2,26 @@
 <html>
   <head>
     <title>Color Palette</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        font-size: 12px;
-        padding: 8px;
-      }
-      h1 {
-        font-size: 16px;
-        margin-bottom: 8px;
-      }
-      ul {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-      }
-      li {
-        margin-bottom: 8px;
-      }
-      .selector {
-        font-weight: bold;
-      }
-      .rules {
-        margin-left: 16px;
-        font-family: monospace;
-      }
-    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/style.css" />
   </head>
+
   <body>
-    <h1>Color Palette</h1>
-    <button id="get-palette">Get Palette</button>
-    <main id="output"></main>
+    <header>
+      <h1>Color Palette Finder</h1>
+    </header>
+    <hr />
+    <main id="output">
+      <button id="get-palette">Get Palette</button>
+      <section id="loading-dots">
+        <div class="loading loading-0"></div>
+        <div class="loading loading-1"></div>
+        <div class="loading loading-2"></div>
+      </section>
+    </main>
     <script src="popup.js"></script>
   </body>
 </html>

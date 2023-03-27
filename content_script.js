@@ -58,9 +58,8 @@ function standardizeHex(hex) {
     let one = hex[1];
     let two = hex[2];
     let three = hex[3];
-    return (hex.length == 7) ? hex : `#${one}${one}${two}${two}${three}${three}`;
+    return hex.length == 7 ? hex : `#${one}${one}${two}${two}${three}${three}`;
 }
-
 
 function getColors() {
     // Regular expression to match colors in CSS
@@ -90,9 +89,13 @@ function getColors() {
                     colorValues.forEach((colorValue) => {
                         // Check if the color is in RGB format
                         let hexValue;
-                        if (colorValue.startsWith('rgb')) { hexValue = rgbToHex(colorValue); }
-                        else if (colorValue.startsWith('hsl')) { hexValue = hslToHex(colorValue); }
-                        else { hexValue = standardizeHex(colorValue); }
+                        if (colorValue.startsWith("rgb")) {
+                            hexValue = rgbToHex(colorValue);
+                        } else if (colorValue.startsWith("hsl")) {
+                            hexValue = hslToHex(colorValue);
+                        } else {
+                            hexValue = standardizeHex(colorValue);
+                        }
                         colors.add(hexValue);
                     });
                 })

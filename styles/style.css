@@ -1,0 +1,80 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    font-size: 12px;
+    padding: 8px;
+    width: 20ch;
+}
+
+h1 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+hr {
+    margin: 8px 0px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    width: 20ch;
+    padding: 5px 0px;
+    background-color: #80A3FF;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: .95;
+}
+
+.loading {
+    width: 10px;
+    height: 10px;
+    background: #FFF;
+    border-radius: 100%;
+    float: left;
+    margin-right: 5px;
+}
+
+.loading-0 {
+    -webkit-animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
+    -webkit-animation-delay: .1s;
+    animation-delay: .1s;
+    background: lightgray;
+}
+
+.loading-1 {
+    -webkit-animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
+    -webkit-animation-delay: .3s;
+    animation-delay: .3s;
+    background: lightgray;
+}
+
+.loading-2 {
+    -webkit-animation: bounce 1s infinite ease;
+    animation: bounce 1s infinite ease;
+    -webkit-animation-delay: .5s;
+    animation-delay: .5s;
+    background: lightgray;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: .0;
+    }
+}

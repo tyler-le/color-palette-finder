@@ -1,12 +1,21 @@
-window.addEventListener('load', function () {
+window.addEventListener("load", function () {
+    const loading = document.getElementById("loading-dots");
+    loading.style.display = "none";
     // Listen for a click event on the button
     const btn = document.getElementById("get-palette");
     btn.addEventListener("click", () => {
+        btn.style.display = "none";
+        loading.style.display = "block";
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, { type: "getColors" }, function (colors) {
-                console.log(colors);
-                renderColors(colors);
-            });
+            chrome.tabs.sendMessage(
+                tabs[0].id,
+                { type: "getColors" },
+                function (colors) {
+                    console.log(colors);
+                    renderColors(colors);
+                    loading.style.display = "none";
+                }
+            );
         });
     });
 });
@@ -40,9 +49,7 @@ function renderColors(colors) {
         // Calculate perceived brightness of color and set text color accordingly
         const [red, green, blue] = colorBlock.style.backgroundColor.match(/\d+/g);
         const perceivedBrightness = Math.sqrt(
-            0.299 * red ** 2 +
-            0.587 * green ** 2 +
-            0.114 * blue ** 2
+            0.299 * red ** 2 + 0.587 * green ** 2 + 0.114 * blue ** 2
         );
         const textColor = perceivedBrightness <= 130 ? "#fff" : "#000";
 
@@ -62,12 +69,14 @@ function renderColors(colors) {
         colorBlock.addEventListener("mouseover", () => {
             colorCodeSpan.style.opacity = 1;
             colorBlock.style.cursor = "pointer";
+            colorBlock.style.opacity = 0.75;
         });
 
         colorBlock.addEventListener("mouseout", () => {
             colorCodeSpan.textContent = sortedColors[i]; // Revert back to the color code
             colorCodeSpan.style.opacity = 1;
             colorBlock.style.cursor = "default";
+            colorBlock.style.opacity = 1;
         });
 
         // Add click event listener to copy color code to clipboard and show "Copied!" message
@@ -83,4 +92,3 @@ function renderColors(colors) {
         colorsContainer.appendChild(colorBlock);
     }
 }
-
