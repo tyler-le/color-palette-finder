@@ -1,4 +1,3 @@
-
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
         case "getColors":
@@ -62,9 +61,26 @@ function standardizeHex(hex) {
     return hex.length == 7 ? hex : `#${one}${one}${two}${two}${three}${three}`;
 }
 
+function fetchResource(input, init) {
+    return new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage({ input, init }, messageResponse => {
+            const [response, error] = messageResponse;
+            if (response === null) {
+                reject(error);
+            } else {
+                // Use undefined on a 204 - No Content
+                const body = response.body ? new Blob([response.body]) : undefined;
+                resolve(new Response(body, {
+                    status: response.status,
+                    statusText: response.statusText,
+                }));
+            }
+        });
+    });
+}
+
+
 async function getColors() {
-    // Custom proxy from heroku to bypass CORS
-    const proxy = "https://boiling-lake-54121.herokuapp.com/";
 
     // Regular expression to match colors in CSS
     const colorRegex = /#([0-9a-f]{3}){1,2}\b|\b((rgb|hsl)a?\([\d\s%,.]+\))/gi;
@@ -82,7 +98,7 @@ async function getColors() {
         if (link.rel === "stylesheet") {
             try {
                 // Fetch the CSS file text
-                const response = await fetch(proxy + link.href);
+                const response = await fetchResource(link.href);
                 const cssText = await response.text();
 
                 // Parse the CSS file and look for color values

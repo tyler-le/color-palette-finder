@@ -23,5 +23,8 @@
   "permissions": ["webRequest", "tabs", "scripting"],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; script-src-elem 'self' 'unsafe-inline'"
+  },
+  "background": {
+    "service_worker": "scripts/background.js"
   }
 }
