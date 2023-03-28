@@ -9,8 +9,8 @@ class ColorBlock extends HTMLElement {
         const colorBlock = document.createElement("div");
 
         // Set the style properties of the color block
-        colorBlock.style.width = "50px";
-        colorBlock.style.height = "50px";
+        colorBlock.style.width = "70px";
+        colorBlock.style.height = "20px";
         colorBlock.style.margin = "5px";
         colorBlock.style.border = "1px solid black";
         colorBlock.style.position = "relative";

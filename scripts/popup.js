@@ -7,25 +7,25 @@ window.addEventListener("load", function () {
 
     // Listen for a click event on the "Get Palette" button
     const btn = document.getElementById("get-palette");
-    btn.addEventListener("click", () => {
+    // btn.addEventListener("click", () => {
 
-        // Hide the button and show the loading indicator
-        btn.style.display = "none";
-        loading.style.display = "block";
+    // Hide the button and show the loading indicator
+    btn.style.display = "none";
+    loading.style.display = "block";
 
-        // Query the active tab in the current window and send a message to get the colors
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            chrome.tabs.sendMessage(
-                tabs[0].id,
-                { type: "getColors" },
-                function (colors) {
-                    console.log(colors);
-                    renderColors(colors);
-                    loading.style.display = "none";
-                }
-            );
-        });
+    // Query the active tab in the current window and send a message to get the colors
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(
+            tabs[0].id,
+            { type: "getColors" },
+            function (colors) {
+                console.log(colors);
+                renderColors(colors);
+                loading.style.display = "none";
+            }
+        );
     });
+    // });
 });
 
 // Sorts colors by frequency and displays the top five colors 
@@ -35,7 +35,8 @@ function renderColors(colors) {
     colorsContainer.innerHTML = "";
 
     if (colors == null || !colors.length) {
-        colorsContainer.innerHTML = "Unable to find colors!";
+        colorsContainer.innerHTML = `<p style="background-color: rgba(216, 0, 12, 0.8); padding: 10px;">Unable to find colors!</p>`;
+
         return;
     }
 
@@ -50,7 +51,7 @@ function renderColors(colors) {
 
     // Create blocks of the most frequent colors
     console.log("[Popup Script] Sorted Colors: ", sortedColors)
-    for (let i = 0; i < 5 && i < sortedColors.length; i++) {
+    for (let i = 0; i < sortedColors.length; i++) {
         const colorBlock = document.createElement("color-block");
         colorBlock.setAttribute("code", sortedColors[i])
         colorsContainer.appendChild(colorBlock);

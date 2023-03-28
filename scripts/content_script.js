@@ -64,7 +64,7 @@ function standardizeHex(hex) {
 
 async function getColors() {
     // Custom proxy from heroku to bypass CORS
-    const proxy = "https://arcane-sands-81508.herokuapp.com/";
+    const proxy = "https://boiling-lake-54121.herokuapp.com/";
 
     // Regular expression to match colors in CSS
     const colorRegex = /#([0-9a-f]{3}){1,2}\b|\b((rgb|hsl)a?\([\d\s%,.]+\))/gi;
