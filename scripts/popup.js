@@ -35,8 +35,7 @@ function renderColors(colors) {
     colorsContainer.innerHTML = "";
 
     if (colors == null || !colors.length) {
-        colorsContainer.innerHTML = `<p style="background-color: rgba(216, 0, 12, 0.8); padding: 10px;">Unable to find colors!</p>`;
-
+        colorsContainer.innerHTML = `<div style="border: 1px solid; margin: 10px 0px; padding: 15px; color: #D8000C; background-color: #FFBABA;">Unable to find colors!</div>`;
         return;
     }
 

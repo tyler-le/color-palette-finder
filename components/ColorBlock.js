@@ -12,7 +12,7 @@ class ColorBlock extends HTMLElement {
         colorBlock.style.width = "70px";
         colorBlock.style.height = "20px";
         colorBlock.style.margin = "5px";
-        colorBlock.style.border = "1px solid black";
+        colorBlock.style.border = "1px solid lightgray";
         colorBlock.style.position = "relative";
         colorBlock.style.cursor = "pointer";
         colorBlock.style.padding = "15px";

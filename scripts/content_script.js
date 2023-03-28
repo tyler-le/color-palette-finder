@@ -61,6 +61,7 @@ function standardizeHex(hex) {
     return hex.length == 7 ? hex : `#${one}${one}${two}${two}${three}${three}`;
 }
 
+// Sends Fetch to background script to bypass CORS
 function fetchResource(input, init) {
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({ input, init }, messageResponse => {
@@ -79,7 +80,7 @@ function fetchResource(input, init) {
     });
 }
 
-
+// Fetches CSS files and applies regex to get color values
 async function getColors() {
 
     // Regular expression to match colors in CSS
