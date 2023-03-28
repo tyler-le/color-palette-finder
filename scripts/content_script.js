@@ -1,7 +1,3 @@
-/*
-TODO: Need to figure out a way to bypass CORS error. 
-Cannot fetch CSS file if the files are stored on a different domain.
-*/
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     switch (message.type) {
@@ -67,6 +63,9 @@ function standardizeHex(hex) {
 }
 
 async function getColors() {
+    // Custom proxy from heroku to bypass CORS
+    const proxy = "https://arcane-sands-81508.herokuapp.com/";
+
     // Regular expression to match colors in CSS
     const colorRegex = /#([0-9a-f]{3}){1,2}\b|\b((rgb|hsl)a?\([\d\s%,.]+\))/gi;
 
@@ -83,7 +82,7 @@ async function getColors() {
         if (link.rel === "stylesheet") {
             try {
                 // Fetch the CSS file text
-                const response = await fetch(link.href);
+                const response = await fetch(proxy + link.href);
                 const cssText = await response.text();
 
                 // Parse the CSS file and look for color values
