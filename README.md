@@ -27,4 +27,4 @@ To install this extension, follow these steps:
 - The extension will automatically detect all colors used in the webpage and display them in a popup window.
 - Click on a color to copy its HEX code to your clipboard.
 
-![2](https://user-images.githubusercontent.com/15850172/228090195-7310781c-9820-4eee-a4f2-10b8042abfe0.png)
+![demo](https://user-images.githubusercontent.com/15850172/228416211-34e3c630-0418-46d5-84dc-8fdfee742713.png)
