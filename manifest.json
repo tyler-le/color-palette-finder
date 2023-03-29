@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "ColorScan",
   "description": "Find out the color palette of any website. Click on a color to copy its HEX code.",
-  "version": "1.0.0",
+  "version": "1.1.1",
 
   "action": {
     "default_popup": "pages/popup.html",
