@@ -1,4 +1,4 @@
-# Color Palette Finder
+# ColorScan
 
 A Chrome extension that finds the color palette of a given webpage.
 
