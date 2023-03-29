@@ -5,12 +5,7 @@ window.addEventListener("load", function () {
     const loading = document.getElementById("loading-dots");
     loading.style.display = "none";
 
-    // Listen for a click event on the "Get Palette" button
-    const btn = document.getElementById("get-palette");
-    // btn.addEventListener("click", () => {
-
-    // Hide the button and show the loading indicator
-    btn.style.display = "none";
+    // Show the loading indicator
     loading.style.display = "block";
 
     // Query the active tab in the current window and send a message to get the colors
@@ -25,7 +20,6 @@ window.addEventListener("load", function () {
             }
         );
     });
-    // });
 });
 
 // Sorts colors by frequency and displays the top five colors 

@@ -1,49 +1,37 @@
-
-:root {
-  color-scheme: dark;
-}
-
 * {
-    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
 }
 
 body {
     font-size: 12px;
-    padding: 8px;
-    width: 20ch;
-    background-color: #2E3136;
-}
-header p {
-    display: flex;
-    justify-content: center;
-}
-h1 {
-    font-size: 16px;
-    font-weight: bold;
-    color: #FFF;
+    background-color: #202225;
+    width: 30ch;
 }
 
-hr {
-    margin: 8px 0px;
+header {
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+    margin: 10px 0;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: .25px;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFF;
 }
 
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+    background-color: #2E3136;
+    padding: 10px 0;
+    font-family: 'Roboto', sans-serif;
 
-button {
-    width: 20ch;
-    padding: 5px 0px;
-    background-color: #80A3FF;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: .95;
 }
 
 .loading {
@@ -52,31 +40,29 @@ button:hover {
     background: #FFF;
     border-radius: 100%;
     float: left;
-    margin-right: 5px;
+}
+
+.loading-0, .loading-1, .loading-2 {
+    -webkit-animation: bounce 1s infinite;
+    animation: bounce 1s infinite;
+    background: lightgray;
 }
 
 .loading-0 {
-    -webkit-animation: bounce 1s infinite;
-    animation: bounce 1s infinite;
     -webkit-animation-delay: .1s;
     animation-delay: .1s;
-    background: lightgray;
 }
 
 .loading-1 {
-    -webkit-animation: bounce 1s infinite;
-    animation: bounce 1s infinite;
     -webkit-animation-delay: .3s;
     animation-delay: .3s;
-    background: lightgray;
 }
 
 .loading-2 {
-    -webkit-animation: bounce 1s infinite ease;
-    animation: bounce 1s infinite ease;
     -webkit-animation-delay: .5s;
     animation-delay: .5s;
-    background: lightgray;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
 }
 
 @keyframes bounce {
@@ -85,19 +71,10 @@ button:hover {
     }
 
     60% {
-        opacity: .0;
+        opacity: 0;
     }
 }
 
-
-
 ::-webkit-scrollbar {
-    background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #202225;
-    border-radius: 10px;
-    border: 5px solid transparent;
-    background-clip: content-box;
+    display: none;
 }
