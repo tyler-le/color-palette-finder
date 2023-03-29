@@ -23,7 +23,7 @@ To install this extension, follow these steps:
 ## Usage/Examples
 
 - Navigate to any webpage where you want to pick a color.
-- Click on the Color Palette icon in your browser toolbar to activate the extension.
+- Click on the ColorScan icon in your browser toolbar to activate the extension.
 - The extension will automatically detect all colors used in the webpage and display them in a popup window.
 - Click on a color to copy its HEX code to your clipboard.
 
