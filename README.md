@@ -18,7 +18,7 @@ To install this extension, follow these steps:
 - Turn on "Developer mode" by toggling the switch in the upper right-hand corner.
 - Click the "Load unpacked" button in the upper left-hand corner.
 - Select the directory where you cloned or downloaded this repository.
-  The Color Picker extension should now be installed and ready to use.
+  The ColorScan extension should now be installed and ready to use.
 
 ## Usage/Examples
 
