@@ -1,6 +1,8 @@
-
 // Wait for the page to fully load before executing the following code
 window.addEventListener("load", function () {
+    // Check if this is the first time the extension has been run
+    checkFirstRun();
+
     // Get the loading indicator element and hide it
     const loading = document.getElementById("loading-dots");
     loading.style.display = "none";
@@ -48,5 +50,19 @@ function renderColors(colors) {
         const colorBlock = document.createElement("color-block");
         colorBlock.setAttribute("code", sortedColors[i])
         colorsContainer.appendChild(colorBlock);
+    }
+}
+
+function checkFirstRun() {
+    const firstRun = localStorage.getItem("firstRun") === null;
+    if (firstRun) {
+        const colorsContainer = document.getElementById("output");
+
+        // Display a message to the user to restart their browser
+        colorsContainer.innerHTML = `<div style="border: 1px solid; margin: 10px 0px; padding: 15px; color: #D8000C; background-color: #FFBABA;">Please restart your browser to complete the installation of this extension.</div>`;
+
+        // Set a flag in local storage to indicate that the extension has already been run
+        localStorage.setItem("firstRun", "false");
+        return;
     }
 }
