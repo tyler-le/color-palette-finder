@@ -25,7 +25,7 @@
       "js": ["scripts/content_script.js"]
     }
   ],
-  "permissions": ["tabs", "storage"],
+  "permissions": ["tabs"],
   "background": {
     "service_worker": "scripts/background.js"
   }
